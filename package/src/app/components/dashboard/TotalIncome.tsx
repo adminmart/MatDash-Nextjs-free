@@ -1,12 +1,10 @@
 "use client";
-import React from "react";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { Icon } from "@iconify/react";
-import { Badge } from "flowbite-react";
+import { Badge } from "@/components/ui/badge";
 
 const TotalIncome = () => {
-
   const ChartData: any = {
     series: [
       {
@@ -54,35 +52,44 @@ const TotalIncome = () => {
       },
     },
   };
+
   return (
-    <>
-      <div className="bg-white rounded-xl shadow-md p-8">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="bg-lighterror text-error p-3 rounded-md">
-            <Icon icon="solar:box-linear" height={24} />
-          </div>
-          <p className="text-lg font-semibold text-dark">Total Income</p>
+    <div className="bg-white dark:bg-darkgray rounded-xl shadow-xs p-8">
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className="bg-lighterror text-error p-3 rounded-md">
+          <Icon icon="solar:box-linear" height={24} />
         </div>
-        <div className="flex">
-          <div className="flex-1">
-            <p className="text-xl text-dark font-medium mb-2">$680</p>
-            <Badge className={`bg-lightsuccess text-success `}>
-              +18%
-            </Badge>
-            <p className="text-success text-xs"></p>
-          </div>
-          <div className="rounded-bars flex-1 md:ps-7">
-            <Chart
-              options={ChartData}
-              series={ChartData.series}
-              type="area"
-              height="60px"
-              width="100%"
-            />
-          </div>
+        <p className="text-lg card-title">Total Income</p>
+      </div>
+
+      {/* Body */}
+      <div className="flex">
+        <div className="flex-1">
+          <p className="text-xl text-dark dark:text-white mb-2">$680</p>
+
+          {/* Shadcn Badge replacement */}
+          <Badge
+            className="bg-lightsuccess text-success hover:bg-lightsuccess/80 text-xs px-2 py-1"
+          >
+            +18%
+          </Badge>
+
+          <p className="text-success text-xs"></p>
+        </div>
+
+        {/* Chart */}
+        <div className="rounded-bars flex-1 md:ps-7">
+          <Chart
+            options={ChartData}
+            series={ChartData.series}
+            type="area"
+            height="60px"
+            width="100%"
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
